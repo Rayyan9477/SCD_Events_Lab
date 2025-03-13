@@ -1,0 +1,37 @@
+name: Node.js CI
+
+on:
+  push:
+    branches: [ main, master ]
+  pull_request:
+    branches: [ main, master ]
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+
+    strategy:
+      matrix:
+        node-version: [16.x, 18.x, 20.x]
+        # See supported Node.js release schedule at https://nodejs.org/en/about/releases/
+
+    steps:
+    - uses: actions/checkout@v3
+    - name: Use Node.js ${{ matrix.node-version }}
+      uses: actions/setup-node@v3
+      with:
+        node-version: ${{ matrix.node-version }}
+        cache: 'npm'
+    - name: Install dependencies
+      run: npm ci
+    - name: Run tests
+      run: npm test
+      env:
+        JWT_SECRET: ${{ secrets.JWT_SECRET || 'test_jwt_secret_for_ci' }}
+        JWT_EXPIRE: '30d'
+        EMAIL_SERVICE: ${{ secrets.EMAIL_SERVICE || 'test' }}
+        EMAIL_USERNAME: ${{ secrets.EMAIL_USERNAME || 'test@example.com' }}
+        EMAIL_PASSWORD: ${{ secrets.EMAIL_PASSWORD || 'testpassword' }}
+        EMAIL_FROM: ${{ secrets.EMAIL_FROM || 'test@example.com' }}
+    - name: Check code style
+      run: npx eslint . --ext .js
