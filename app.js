@@ -7,10 +7,10 @@ const dotenv = require('dotenv');
 dotenv.config();
 
 // Route files
-const authRoutes = require('./routes/auth');
-const categoryRoutes = require('./routes/categories');
-const eventRoutes = require('./routes/events');
-const reminderRoutes = require('./routes/reminders');
+// const authRoutes = require('./routes/auth');
+// const categoryRoutes = require('./routes/categories');
+// const eventRoutes = require('./routes/events');
+// const reminderRoutes = require('./routes/reminders');
 
 // Connect to database
 connectDB();
@@ -24,10 +24,10 @@ app.use(express.json());
 app.use(cors());
 
 // Mount routers
-app.use('/api/auth', authRoutes);
-app.use('/api/categories', categoryRoutes);
-app.use('/api/events', eventRoutes);
-app.use('/api/reminders', reminderRoutes);
+// app.use('/api/auth', authRoutes);
+// app.use('/api/categories', categoryRoutes);
+// app.use('/api/events', eventRoutes);
+// app.use('/api/reminders', reminderRoutes);
 
 // Basic route
 app.get('/', (req, res) => {

@@ -22,6 +22,6 @@ router.route('/')
 router.route('/:id')
   .get(reminderController.getReminder)
   .put(reminderController.updateReminder)
-  .delete(reminderController.deleteReminder);
+  
 
 module.exports = router;
