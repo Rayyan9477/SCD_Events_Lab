@@ -3,7 +3,7 @@ const mongoose = require('mongoose');
 const { MongoMemoryServer } = require('mongodb-memory-server');
 const app = require('../app');
 const User = require('../models/user');
-const Category = require('../models/Category');
+const Category = require('../models/category');
 
 let mongoServer;
 let token;

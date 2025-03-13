@@ -1,5 +1,5 @@
-const Event = require('../models/Event');
-const Category = require('../models/Category');
+const Event = require('../models/event');
+const Category = require('../models/category');
 const { validationResult } = require('express-validator');
 
 // @desc    Create new event
