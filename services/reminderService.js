@@ -1,7 +1,7 @@
 const nodemailer = require('nodemailer');
 const cron = require('node-cron');
 const Reminder = require('../models/remainder');
-const User = require('../models/User');
+const User = require('../models/user');
 
 // Configure transporter for sending emails
 const transporter = nodemailer.createTransport({
