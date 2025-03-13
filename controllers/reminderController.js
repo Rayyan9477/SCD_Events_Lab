@@ -1,5 +1,5 @@
 const Reminder = require('../models/remainder');
-const Event = require('../models/Event');
+const Event = require('../models/event');
 const { validationResult } = require('express-validator');
 
 // @desc    Create new reminder
