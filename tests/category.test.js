@@ -11,6 +11,14 @@ let userId;
 
 // Setup MongoDB Memory Server before all tests
 beforeAll(async () => {
+  // Close any existing connections
+  if (mongoose.connection.readyState !== 0) {
+    await mongoose.disconnect();
+  }
+  
+  // Set test environment
+  process.env.NODE_ENV = 'test';
+  
   mongoServer = await MongoMemoryServer.create();
   const uri = mongoServer.getUri();
   await mongoose.connect(uri);
@@ -81,6 +89,16 @@ describe('Category Routes', () => {
         user: userId
       });
 
-      // Try to create duplicate
+      // Try to create duplicate category
       const res = await request(app)
-        .post
+        .post('/api/categories')
+        .set('Authorization', `Bearer ${token}`)
+        .send({
+          name: 'Meetings',
+          color: '#FF5733'
+        });
+
+      expect(res.statusCode).toEqual(400);
+    });
+  });
+});

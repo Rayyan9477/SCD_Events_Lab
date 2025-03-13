@@ -6,8 +6,15 @@ const User = require('../models/User');
 
 let mongoServer;
 
-// Setup MongoDB Memory Server before all tests
 beforeAll(async () => {
+  // Close any existing connections
+  if (mongoose.connection.readyState !== 0) {
+    await mongoose.disconnect();
+  }
+  
+  // Set test environment
+  process.env.NODE_ENV = 'test';
+  
   mongoServer = await MongoMemoryServer.create();
   const uri = mongoServer.getUri();
   await mongoose.connect(uri);
@@ -23,6 +30,10 @@ afterAll(async () => {
   await mongoose.disconnect();
   await mongoServer.stop();
 });
+
+
+
+
 
 describe('Auth Routes', () => {
   describe('POST /api/auth/register', () => {

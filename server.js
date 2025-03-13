@@ -1,10 +1,13 @@
 const app = require('./app');
-// const reminderService = require('./services/reminderService');
+const reminderService = require('./services/reminderService');
 
 const PORT = process.env.PORT || 5000;
 
-// Start the reminder checking service
-// reminderService.initReminderService();
+// Only start services if not in test mode
+if (process.env.NODE_ENV !== 'test') {
+  // Start the reminder checking service
+  reminderService.initReminderService();
+}
 
 const server = app.listen(PORT, () => {
   console.log(`Server running on port ${PORT}`);
