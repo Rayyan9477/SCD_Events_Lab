@@ -2,9 +2,9 @@ name: Node.js CI
 
 on:
   push:
-    branches: [ main, master ]
+    branches: [main, master]
   pull_request:
-    branches: [ main, master ]
+    branches: [main, master]
 
 jobs:
   test:
@@ -17,10 +17,12 @@ jobs:
 
     steps:
     - uses: actions/checkout@v3
-    - name: Install OpenSSL 1.1 (Ubuntu)
+    - name: Install OpenSSL 1.1
       run: |
-          sudo apt update
-          sudo apt install -y libssl1.1 || sudo apt install -y libssl-dev
+        sudo apt update
+        sudo apt install -y wget
+        wget http://ports.ubuntu.com/pool/main/o/openssl/libssl1.1_1.1.1f-1ubuntu2_amd64.deb
+        sudo dpkg -i libssl1.1_1.1.1f-1ubuntu2_amd64.deb
     - name: Use Node.js ${{ matrix.node-version }}
       uses: actions/setup-node@v3
       with:
@@ -37,6 +39,6 @@ jobs:
         EMAIL_USERNAME: ${{ secrets.EMAIL_USERNAME || 'test@example.com' }}
         EMAIL_PASSWORD: ${{ secrets.EMAIL_PASSWORD || 'testpassword' }}
         EMAIL_FROM: ${{ secrets.EMAIL_FROM || 'test@example.com' }}
-        MONGODB_URI: ${{secrets.MONGODB_URI ||'mongodb+srv://khanzada55455:admin123@cluster0.zmurb.mongodb.net/?retryWrites=true&w=majority&appName=Cluster0'}}
+        MONGODB_URI: ${{ secrets.MONGODB_URI || 'mongodb+srv://khanzada55455:admin123@cluster0.zmurb.mongodb.net/?retryWrites=true&w=majority&appName=Cluster0' }}
     - name: Check code style
       run: npx eslint . --ext .js
