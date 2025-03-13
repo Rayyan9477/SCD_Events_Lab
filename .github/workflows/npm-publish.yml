@@ -33,5 +33,6 @@ jobs:
         EMAIL_USERNAME: ${{ secrets.EMAIL_USERNAME || 'test@example.com' }}
         EMAIL_PASSWORD: ${{ secrets.EMAIL_PASSWORD || 'testpassword' }}
         EMAIL_FROM: ${{ secrets.EMAIL_FROM || 'test@example.com' }}
+        MONGODB_URI: ${{'mongodb+srv://khanzada55455:admin123@cluster0.zmurb.mongodb.net/?retryWrites=true&w=majority&appName=Cluster0'}}
     - name: Check code style
       run: npx eslint . --ext .js
